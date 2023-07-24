@@ -10,6 +10,28 @@ const newGame = document.querySelector('.btn--new');
 const rollDice = document.querySelector('.btn--roll');
 const holdDice = document.querySelector('.btn--hold');
 
+let score, currentScore, activePlayer, playing;
+
+const init = () => {
+  scores = [0, 0];
+  currentScore = 0;
+  activePlayer = 0;
+  playing = true;
+
+  player1Score.textContent = 0;
+  player2Score.textContent = 0;
+  player1CurrentScore.textContent = 0;
+  player2CurrentScore.textContent = 0;
+
+  diceOutcome.classList.add('hidden');
+  player1.classList.remove('player--winner');
+  player2.classList.remove('player--winner');
+  player1.classList.add('player--active');
+  player2.classList.remove('player--active');
+};
+
+init();
+
 const switchPlayer = () => {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
   currentScore = 0;
@@ -17,16 +39,6 @@ const switchPlayer = () => {
   player1.classList.toggle('player--active');
   player2.classList.toggle('player--active');
 };
-
-let scores = [0, 0];
-let currentScore = 0;
-let activePlayer = 0;
-
-let playing = true;
-
-player1Score.textContent = 0;
-player2Score.textContent = 0;
-diceOutcome.classList.add('hidden');
 
 rollDice.addEventListener('click', function () {
   if (playing) {
@@ -51,7 +63,7 @@ holdDice.addEventListener('click', function () {
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
 
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 100) {
       playing = false;
       diceOutcome.classList.add('hidden');
       document
@@ -66,3 +78,5 @@ holdDice.addEventListener('click', function () {
     }
   }
 });
+
+newGame.addEventListener('click', init);
